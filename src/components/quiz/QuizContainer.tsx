@@ -1,9 +1,25 @@
-import { useCallback, useState } from 'react';
-import type { ICategoryId } from '../../data/russian-words-full';
+import { useCallback, useEffect, useState } from 'react';
+import { CATEGORIES_CONFIG, type ICategoryId } from '../../data/russian-words-full';
 import { useQuiz } from '../../hooks/useQuiz';
 import { QuizCompletionPage } from './QuizCompletionPage';
 import { QuizPage } from './QuizPage';
 import { SelectCategoriesPage } from './SelectCategoriesPage';
+
+const SELECTED_CATEGORIES_KEY = 'selectedCategories';
+const VALID_CATEGORY_IDS = new Set<string>(CATEGORIES_CONFIG.map(cat => cat.id));
+
+// Load the last category selection from localStorage, ignoring anything invalid.
+function loadSelectedCategories(): ICategoryId[] {
+  try {
+    const raw = localStorage.getItem(SELECTED_CATEGORIES_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((id): id is ICategoryId => typeof id === 'string' && VALID_CATEGORY_IDS.has(id));
+  } catch {
+    return [];
+  }
+}
 
 export function QuizContainer() {
   const {
@@ -16,12 +32,20 @@ export function QuizContainer() {
 
   // Local UI state for category selection
   const [showCategorySelector, setShowCategorySelector] = useState(true);
-  const [selectedCategories, setSelectedCategories] = useState<ICategoryId[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<ICategoryId[]>(loadSelectedCategories);
 
-  // Handle starting a new quiz - go back to category selection
+  // Remember the last selection across sessions
+  useEffect(() => {
+    try {
+      localStorage.setItem(SELECTED_CATEGORIES_KEY, JSON.stringify(selectedCategories));
+    } catch {
+      // localStorage unavailable (e.g. private mode) - selection just won't persist
+    }
+  }, [selectedCategories]);
+
+  // Handle starting a new quiz - go back to category selection (keeping last selection)
   const handleStartNewQuiz = useCallback(() => {
     setShowCategorySelector(true);
-    setSelectedCategories([]);
     restartQuiz(); // Reset quiz state to show category selection
   }, [restartQuiz]);
 

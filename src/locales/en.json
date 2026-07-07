@@ -63,6 +63,8 @@
     "selected": "Selected:",
     "allCategoriesSelected": "All categories",
     "categoriesSelected": "{{count}} categories",
+    "selectAll": "Select all",
+    "clearAll": "Clear all",
     "startQuiz": "Start Quiz",
     "basic": "Basic Vocabulary",
     "basicDescription": "Essential everyday words",

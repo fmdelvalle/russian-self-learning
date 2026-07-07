@@ -28,6 +28,17 @@ export function CategorySelector({
         onStartQuiz();
     };
 
+    const allSelected = selectedCategories.length === categories.length;
+    const noneSelected = selectedCategories.length === 0;
+
+    const handleSelectAll = () => {
+        onCategoriesChange(categories.map(category => category.id as ICategoryId));
+    };
+
+    const handleClearAll = () => {
+        onCategoriesChange([]);
+    };
+
     return (
         <div className="max-w-6xl mx-auto text-center">
             <div className="bg-card border border-border rounded-lg p-8 shadow-sm">
@@ -37,6 +48,27 @@ export function CategorySelector({
                     <br />
                     {t('categories.allCategories')}
                 </p>
+
+                <div className="flex justify-end gap-4 mb-3 text-sm">
+                    <button
+                        type="button"
+                        onClick={handleSelectAll}
+                        disabled={allSelected}
+                        className="underline underline-offset-2 transition-colors disabled:opacity-40 disabled:no-underline disabled:cursor-default hover:opacity-80"
+                        style={{ color: 'hsl(var(--muted-foreground))' }}
+                    >
+                        {t('categories.selectAll')}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleClearAll}
+                        disabled={noneSelected}
+                        className="underline underline-offset-2 transition-colors disabled:opacity-40 disabled:no-underline disabled:cursor-default hover:opacity-80"
+                        style={{ color: 'hsl(var(--muted-foreground))' }}
+                    >
+                        {t('categories.clearAll')}
+                    </button>
+                </div>
 
                 <div className="mb-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 text-left">

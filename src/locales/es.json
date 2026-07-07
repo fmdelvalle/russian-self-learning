@@ -63,6 +63,8 @@
     "selected": "Seleccionado:",
     "allCategoriesSelected": "Todas las categorías",
     "categoriesSelected": "{{count}} categorías",
+    "selectAll": "Marcar todo",
+    "clearAll": "Limpiar todo",
     "startQuiz": "Comenzar Quiz",
     "basic": "Vocabulario Básico",
     "basicDescription": "Palabras esenciales del día a día",
