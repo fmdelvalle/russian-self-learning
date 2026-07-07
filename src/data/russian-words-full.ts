@@ -449,7 +449,7 @@ export const russianWords: Word[] = [
   { id: 360, cyrillic: 'мёртвый', romanized: 'myórtvyy', spanish: 'muerto', category: 'adjectives' },
 
   // Words 361-400: More Common Vocabulary
-  { id: 361, cyrillic: 'компьютер', romanized: "komp'yúter", spanish: 'computadora', category: 'technology' },
+  { id: 361, cyrillic: 'компьютер', romanized: "komp'yúter", spanish: 'computadora/ordenador', category: 'technology' },
   { id: 362, cyrillic: 'телефон', romanized: 'telefón', spanish: 'teléfono', category: 'technology' },
   { id: 363, cyrillic: 'интернет', romanized: 'internét', spanish: 'internet', category: 'technology' },
   { id: 364, cyrillic: 'почта', romanized: 'póchta', spanish: 'correo', category: 'basic' },
@@ -960,7 +960,7 @@ export const russianWords: Word[] = [
   { id: 850, cyrillic: 'цель', romanized: "tsel'", spanish: 'objetivo', category: 'abstract' },
 
   // Words 851-900: Technology & Media
-  { id: 851, cyrillic: 'компьютер', romanized: "komp'yúter", spanish: 'computadora', category: 'technology' },
+  { id: 851, cyrillic: 'компьютер', romanized: "komp'yúter", spanish: 'computadora/ordenador', category: 'technology' },
   { id: 852, cyrillic: 'ноутбук', romanized: 'noutbúk', spanish: 'laptop', category: 'technology' },
   { id: 853, cyrillic: 'планшет', romanized: 'planshét', spanish: 'tablet', category: 'technology' },
   { id: 854, cyrillic: 'телефон', romanized: 'telefón', spanish: 'teléfono', category: 'technology' },
@@ -1203,4 +1203,7 @@ export const russianWords: Word[] = [
   { id: 1075, cyrillic: 'рейс', romanized: 'réys', spanish: 'vuelo', category: 'transportation' },
   { id: 1076, cyrillic: 'супермаркет', romanized: 'supermárket', spanish: 'supermercado', category: 'transportation' },
   { id: 1077, cyrillic: 'десерт', romanized: 'desért', spanish: 'postre', category: 'food' },
+  { id: 1078, cyrillic: 'мобильник', romanized: "mobíl'nik", spanish: 'móvil', category: 'technology' },
+  { id: 1079, cyrillic: 'запрещено', romanized: 'zapreshchenó', spanish: 'prohibido', category: 'grammar' },
+  { id: 1080, cyrillic: 'некрасивый', romanized: 'nekrasívyy', spanish: 'feo', category: 'adjectives' },
 ];
