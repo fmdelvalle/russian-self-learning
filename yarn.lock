@@ -3059,9 +3059,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"russian-temp@workspace:.":
+"russian-self-learning@workspace:.":
   version: 0.0.0-use.local
-  resolution: "russian-temp@workspace:."
+  resolution: "russian-self-learning@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.36.0"
     "@tailwindcss/postcss": "npm:^4.1.15"
