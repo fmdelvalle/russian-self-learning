@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { CATEGORIES_CONFIG, type ICategoryId } from '../../data/russian-words-full';
+import { useMistakesBag } from '../../hooks/useMistakesBag';
 import { useQuiz } from '../../hooks/useQuiz';
 import { QuizCompletionPage } from './QuizCompletionPage';
 import { QuizPage } from './QuizPage';
@@ -27,8 +28,11 @@ export function QuizContainer() {
     progress,
     score,
     startNewQuiz,
+    startMistakesQuiz,
     restartQuiz,
   } = useQuiz();
+
+  const { count: mistakesCount, clear: clearMistakes } = useMistakesBag();
 
   // Local UI state for category selection
   const [showCategorySelector, setShowCategorySelector] = useState(true);
@@ -55,6 +59,12 @@ export function QuizContainer() {
     startNewQuiz(selectedCategories.length > 0 ? selectedCategories : undefined);
   }, [selectedCategories, startNewQuiz]);
 
+  // Handle starting a quiz built from the mistakes bag
+  const handleStartMistakes = useCallback(() => {
+    setShowCategorySelector(false);
+    startMistakesQuiz();
+  }, [startMistakesQuiz]);
+
   // Router logic: determine which component to show
   if (progress.total === 0) {
     // Pre-quiz: Show category selection
@@ -65,6 +75,9 @@ export function QuizContainer() {
         onStartQuiz={handleStartQuiz}
         onShowCategorySelector={() => setShowCategorySelector(true)}
         showCategorySelector={showCategorySelector}
+        mistakesCount={mistakesCount}
+        onStartMistakes={handleStartMistakes}
+        onClearMistakes={clearMistakes}
       />
     );
   }

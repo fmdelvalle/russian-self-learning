@@ -66,6 +66,8 @@
     "selectAll": "Marcar todo",
     "clearAll": "Limpiar todo",
     "startQuiz": "Comenzar Quiz",
+    "practiceMistakes": "Practicar mis errores ({{count}})",
+    "clearMistakes": "Vaciar bolsa de errores",
     "basic": "Vocabulario Básico",
     "basicDescription": "Palabras esenciales del día a día",
     "family": "Familia y Personas",

@@ -10,6 +10,9 @@ interface SelectCategoriesPageProps {
     onStartQuiz: () => void;
     onShowCategorySelector: () => void;
     showCategorySelector: boolean;
+    mistakesCount: number;
+    onStartMistakes: () => void;
+    onClearMistakes: () => void;
 }
 
 export function SelectCategoriesPage({
@@ -18,6 +21,9 @@ export function SelectCategoriesPage({
     onStartQuiz,
     onShowCategorySelector,
     showCategorySelector,
+    mistakesCount,
+    onStartMistakes,
+    onClearMistakes,
 }: SelectCategoriesPageProps) {
     const { t } = useTranslation();
 
@@ -37,6 +43,9 @@ export function SelectCategoriesPage({
                 selectedCategories={selectedCategories}
                 onCategoriesChange={onCategoriesChange}
                 onStartQuiz={onStartQuiz}
+                mistakesCount={mistakesCount}
+                onStartMistakes={onStartMistakes}
+                onClearMistakes={onClearMistakes}
             />
         );
     }

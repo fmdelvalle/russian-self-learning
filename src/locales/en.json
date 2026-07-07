@@ -66,6 +66,8 @@
     "selectAll": "Select all",
     "clearAll": "Clear all",
     "startQuiz": "Start Quiz",
+    "practiceMistakes": "Practice my mistakes ({{count}})",
+    "clearMistakes": "Empty mistakes bag",
     "basic": "Basic Vocabulary",
     "basicDescription": "Essential everyday words",
     "family": "Family & People",

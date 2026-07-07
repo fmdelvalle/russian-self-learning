@@ -25,7 +25,7 @@ export function generateHangmanQuestion(word: Word): HangmanQuestion {
 }
 
 /**
- * Generate random questions from a word list
+ * Generate random questions from a word list, optionally filtered by category.
  */
 export function generateQuestions(
   words: Word[],
@@ -34,9 +34,34 @@ export function generateQuestions(
 ): Question[] {
   // Filter words by categories if provided
   const filteredWords = filterWordsByCategories(words, categories || []);
-  const hangmanWords = getHangmanWords(filteredWords);
+  return buildQuestions(filteredWords, filteredWords, count);
+}
 
-  if (filteredWords.length < 4) {
+/**
+ * Generate questions targeting a specific set of words (e.g. the mistakes bag),
+ * drawing multiple-choice distractors from a separate pool so options are still
+ * available even when the target set is tiny.
+ */
+export function generateQuestionsFromWords(
+  targetWords: Word[],
+  distractorPool: Word[],
+  count: number
+): Question[] {
+  return buildQuestions(targetWords, distractorPool, count);
+}
+
+/**
+ * Core question builder. Question subjects are drawn from `targetWords`;
+ * multiple-choice distractors come from `distractorPool`.
+ */
+function buildQuestions(
+  targetWords: Word[],
+  distractorPool: Word[],
+  count: number
+): Question[] {
+  const hangmanWords = getHangmanWords(targetWords);
+
+  if (distractorPool.length < 4) {
     throw new Error('Need at least 4 words to generate questions');
   }
 
@@ -69,7 +94,7 @@ export function generateQuestions(
       questionType = availableTypes[Math.floor(Math.random() * availableTypes.length)];
     }
 
-    const word = getRandomWord(filteredWords, usedWords);
+    const word = getRandomWord(targetWords, usedWords);
 
     if (!word) break; // No more words available
 
@@ -83,7 +108,7 @@ export function generateQuestions(
 
     // Add options for multiple choice questions
     if (questionType === 'multiple-choice-to-russian' || questionType === 'multiple-choice-to-spanish') {
-      question.options = generateMultipleChoiceOptions(filteredWords, word);
+      question.options = generateMultipleChoiceOptions(distractorPool, word);
     }
 
     // Increment counter for write-russian questions
@@ -124,22 +149,35 @@ function getRandomWord(words: Word[], usedWords: Set<number>): Word | null {
 }
 
 /**
- * Generate 4 options for multiple choice questions (1 correct + 3 wrong)
+ * Generate 4 options for multiple choice questions (1 correct + 3 wrong).
+ *
+ * Distractors are drawn from the SAME category as the correct word so the
+ * choices stay semantically close (otherwise the known word stands out and the
+ * question becomes trivial). Only if that category is too small do we top up
+ * from the rest of the pool. Fresh picks each time keep the options varied.
  */
-function generateMultipleChoiceOptions(words: Word[], correctWord: Word): Word[] {
+function generateMultipleChoiceOptions(pool: Word[], correctWord: Word): Word[] {
   const options = [correctWord];
   const usedIds = new Set([correctWord.id]);
 
-  // Add 3 random wrong options
-  while (options.length < 4) {
-    const randomWord = words[Math.floor(Math.random() * words.length)];
-    if (!usedIds.has(randomWord.id)) {
-      options.push(randomWord);
-      usedIds.add(randomWord.id);
+  const sameCategory = pool.filter(
+    word => word.id !== correctWord.id && word.category === correctWord.category
+  );
+  const otherCategory = pool.filter(
+    word => word.id !== correctWord.id && word.category !== correctWord.category
+  );
+
+  // Same-category distractors first, then fall back to the rest of the pool
+  const candidates = [...shuffleArray(sameCategory), ...shuffleArray(otherCategory)];
+  for (const word of candidates) {
+    if (options.length >= 4) break;
+    if (!usedIds.has(word.id)) {
+      options.push(word);
+      usedIds.add(word.id);
     }
   }
 
-  // Shuffle the options
+  // Shuffle so the correct answer isn't always first
   return shuffleArray(options);
 }
 

@@ -7,13 +7,19 @@ interface CategorySelectorProps {
     selectedCategories: ICategoryId[];
     onCategoriesChange: (categories: ICategoryId[]) => void;
     onStartQuiz: () => void;
+    mistakesCount: number;
+    onStartMistakes: () => void;
+    onClearMistakes: () => void;
 }
 
 export function CategorySelector({
     categories,
     selectedCategories,
     onCategoriesChange,
-    onStartQuiz
+    onStartQuiz,
+    mistakesCount,
+    onStartMistakes,
+    onClearMistakes
 }: CategorySelectorProps) {
     const { t } = useTranslation();
     const handleCategoryToggle = (categoryId: ICategoryId) => {
@@ -114,6 +120,28 @@ export function CategorySelector({
                 >
                     {t('categories.startQuiz')}
                 </button>
+
+                {mistakesCount > 0 && (
+                    <div className="mt-8 pt-6 border-t" style={{ borderColor: 'hsl(var(--border))' }}>
+                        <button
+                            onClick={onStartMistakes}
+                            className="px-6 py-3 rounded-lg font-bold border transition-colors hover:bg-muted/50"
+                            style={{ borderColor: 'hsl(var(--primary))', color: 'hsl(var(--primary))' }}
+                        >
+                            {t('categories.practiceMistakes', { count: mistakesCount })}
+                        </button>
+                        <div className="mt-3">
+                            <button
+                                type="button"
+                                onClick={onClearMistakes}
+                                className="text-sm underline underline-offset-2 transition-colors hover:opacity-80"
+                                style={{ color: 'hsl(var(--muted-foreground))' }}
+                            >
+                                {t('categories.clearMistakes')}
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -20,6 +20,7 @@ interface UseQuizReturn {
   submitAnswer: (answer: string) => void;
   nextQuestion: () => void;
   startNewQuiz: (categories?: ICategoryId[]) => void;
+  startMistakesQuiz: () => void;
   restartQuiz: () => void;
 }
 
@@ -49,6 +50,7 @@ export function useQuiz(): UseQuizReturn {
     submitAnswer: store.submitAnswer,
     nextQuestion: store.nextQuestion,
     startNewQuiz: store.startNewQuiz,
+    startMistakesQuiz: store.startMistakesQuiz,
     restartQuiz: store.restartQuiz,
   };
 }

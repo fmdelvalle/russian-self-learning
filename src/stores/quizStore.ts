@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import { russianWords, type ICategoryId } from '../data/russian-words-full';
-import type { Question } from '../types';
-import { generateQuestions, validateAnswer } from '../utils/questionGenerator';
+import { addMistake, getMistakeIds } from '../data/mistakesBag';
+import type { Question, Word } from '../types';
+import { generateQuestions, generateQuestionsFromWords, validateAnswer } from '../utils/questionGenerator';
 
 interface QuizStore {
     // Core State
@@ -19,6 +20,7 @@ interface QuizStore {
 
     // Actions
     startNewQuiz: (categories?: ICategoryId[]) => void;
+    startMistakesQuiz: () => void;
     submitAnswer: (answer: string) => void;
     nextQuestion: () => void;
     restartQuiz: () => void;
@@ -49,6 +51,21 @@ export const useQuizStore = create<QuizStore>((set, get) => ({
         });
     },
 
+    startMistakesQuiz: () => {
+        const ids = new Set(getMistakeIds());
+        const words = russianWords.filter((word: Word) => ids.has(word.id));
+        if (words.length === 0) return;
+
+        const questions = generateQuestionsFromWords(words, russianWords, Math.min(20, words.length));
+        set({
+            completedQuestions: 0,
+            score: 0,
+            remainingQuestions: questions,
+            pageMode: 'ASKING',
+            lastAnswer: null,
+        });
+    },
+
     submitAnswer: (answer: string) => {
         const state = get();
         const currentQuestion = state.remainingQuestions[0];
@@ -56,6 +73,11 @@ export const useQuizStore = create<QuizStore>((set, get) => ({
         if (!currentQuestion) return;
 
         const isCorrect = validateAnswer(currentQuestion, answer);
+
+        // A wrong answer drops the word into the persistent mistakes bag
+        if (!isCorrect) {
+            addMistake(currentQuestion.word.id);
+        }
 
         // First, set feedback state with current question still in place
         set({
