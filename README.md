@@ -4,6 +4,8 @@ A web app for learning Russian vocabulary, designed for **Spanish speakers**. It
 
 Built with React 19, TypeScript, Vite and Tailwind CSS.
 
+**🔗 Live demo: [russian-self-learning.fmdelvalle.workers.dev](https://russian-self-learning.fmdelvalle.workers.dev)**
+
 ## Features
 
 - **Five question types**, mixed within each round:
