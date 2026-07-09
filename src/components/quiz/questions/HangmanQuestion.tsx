@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { HangmanQuestion } from '../../../types';
 import { checkHangmanLetter, getHangmanLetterPositions } from '../../../utils/questionGenerator';
+import { RomanizedText } from '../../RomanizedText';
 import { FeedbackDisplay } from '../feedback/FeedbackDisplay';
 
 interface HangmanGameState {
@@ -218,11 +219,11 @@ export function HangmanQuestion({
                 <div className="text-center">
                     {gameState.isComplete ? (
                         <div className="text-green-600 text-lg font-bold mb-4">
-                            {t('questions.hangmanSuccess')} {question.word.romanized}
+                            {t('questions.hangmanSuccess')} <RomanizedText text={question.word.romanized} />
                         </div>
                     ) : (
                         <div className="text-red-600 text-lg font-bold mb-4">
-                            {t('questions.hangmanFailure')} {question.word.romanized}
+                            {t('questions.hangmanFailure')} <RomanizedText text={question.word.romanized} />
                         </div>
                     )}
                 </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Question } from '../../../types';
+import { RomanizedText } from '../../RomanizedText';
 import { FeedbackDisplay } from '../feedback/FeedbackDisplay';
 
 interface WriteSpanishProps {
@@ -61,7 +62,7 @@ export function WriteSpanish({
                 {t('questions.translateToSpanish')}
             </h3>
             <div className="text-3xl mb-4">
-                {question.word.cyrillic} ({question.word.romanized})
+                {question.word.cyrillic} (<RomanizedText text={question.word.romanized} />)
             </div>
 
             {/* Input field for write questions */}

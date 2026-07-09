@@ -1,3 +1,4 @@
+import { RomanizedText } from '../../RomanizedText';
 import type { Question } from '../../../types';
 
 interface MultipleChoiceOptionsProps {
@@ -103,7 +104,7 @@ export function MultipleChoiceOptions({
                     style={{ accentColor: 'hsl(var(--primary))' }}
                   />
                   <div className="flex-1">
-                    <div className="text-lg font-bold">{option.romanized}</div>
+                    <div className="text-lg font-bold"><RomanizedText text={option.romanized} /></div>
                     <div className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>
                       {option.cyrillic}
                     </div>
