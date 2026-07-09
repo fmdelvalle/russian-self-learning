@@ -559,7 +559,6 @@ export const russianWords: Word[] = [
   { id: 483, cyrillic: 'курица', romanized: 'kúritsa', spanish: 'pollo', category: 'food' },
   { id: 484, cyrillic: 'говядина', romanized: 'govyádina', spanish: 'carne de res', category: 'food' },
   { id: 485, cyrillic: 'свинина', romanized: 'svinína', spanish: 'carne de cerdo', category: 'food' },
-  { id: 486, cyrillic: 'колбаса', romanized: 'kolbasá', spanish: 'salchicha/embutido', category: 'food' },
   { id: 487, cyrillic: 'сосиска', romanized: 'sosíska', spanish: 'salchicha pequeña', category: 'food' },
   { id: 490, cyrillic: 'масло', romanized: 'máslo', spanish: 'mantequilla/aceite', category: 'food' },
   { id: 492, cyrillic: 'творог', romanized: 'tvoróg', spanish: 'requesón', category: 'food' },
