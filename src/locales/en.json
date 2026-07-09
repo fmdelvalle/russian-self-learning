@@ -63,6 +63,7 @@
     "selected": "Selected:",
     "allCategoriesSelected": "All categories",
     "categoriesSelected": "{{count}} categories",
+    "words": "{{count}} words",
     "selectAll": "Select all",
     "clearAll": "Clear all",
     "startQuiz": "Start Quiz",

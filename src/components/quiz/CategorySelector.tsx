@@ -1,5 +1,6 @@
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { ICategoryId } from '../../data/russian-words-full';
+import { filterWordsByCategories, russianWords, type ICategoryId } from '../../data/russian-words-full';
 import type { Category } from '../../types';
 
 interface CategorySelectorProps {
@@ -36,6 +37,14 @@ export function CategorySelector({
 
     const allSelected = selectedCategories.length === categories.length;
     const noneSelected = selectedCategories.length === 0;
+
+    // Number of words the current selection covers (all words when none selected)
+    const wordCount = useMemo(
+        () => selectedCategories.length === 0
+            ? russianWords.length
+            : filterWordsByCategories(russianWords, selectedCategories).length,
+        [selectedCategories]
+    );
 
     const handleSelectAll = () => {
         onCategoriesChange(categories.map(category => category.id as ICategoryId));
@@ -106,7 +115,7 @@ export function CategorySelector({
 
                 <div className="mb-6">
                     <p className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>
-                        {t('categories.selected')} {selectedCategories.length === 0 ? t('categories.allCategoriesSelected') : t('categories.categoriesSelected', { count: selectedCategories.length })}
+                        {t('categories.selected')} {selectedCategories.length === 0 ? t('categories.allCategoriesSelected') : t('categories.categoriesSelected', { count: selectedCategories.length })} ({t('categories.words', { count: wordCount })})
                     </p>
                 </div>
 

@@ -63,6 +63,7 @@
     "selected": "Seleccionado:",
     "allCategoriesSelected": "Todas las categorías",
     "categoriesSelected": "{{count}} categorías",
+    "words": "{{count}} palabras",
     "selectAll": "Marcar todo",
     "clearAll": "Limpiar todo",
     "startQuiz": "Comenzar Quiz",
