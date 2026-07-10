@@ -934,7 +934,7 @@ export const russianWords: Word[] = [
   { id: 927, cyrillic: 'огород', romanized: 'ogórod', spanish: 'huerto', category: 'basic' },
   { id: 928, cyrillic: 'цветоводство', romanized: 'tsvetovódstvo', spanish: 'jardinería', category: 'sports' },
   { id: 931, cyrillic: 'чтение', romanized: "chténiye", spanish: 'lectura', category: 'sports' },
-  { id: 932, cyrillic: 'рисование', romanized: 'risovániye', spanish: 'dibujo', category: 'sports' },
+  { id: 932, cyrillic: 'рисунок', romanized: 'risúnok', spanish: 'dibujo', category: 'sports' },
   { id: 933, cyrillic: 'живопись', romanized: 'zhivópis', spanish: 'pintura', category: 'sports' },
   { id: 934, cyrillic: 'скульптура', romanized: 'skul\'ptúra', spanish: 'escultura', category: 'sports' },
   { id: 935, cyrillic: 'фотография', romanized: 'fotográfiya', spanish: 'fotografía', category: 'sports' },
