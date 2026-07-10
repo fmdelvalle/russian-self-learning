@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Question } from '../../../types';
+import { RomanizedText } from '../../RomanizedText';
 import { FeedbackDisplay } from '../feedback/FeedbackDisplay';
 import { MultipleChoiceOptions } from '../options/MultipleChoiceOptions';
 
@@ -71,7 +72,17 @@ export function MultipleChoiceToSpanish({
     return (
         <>
             <h3 className="text-2xl font-bold mb-4">
-                {t('questions.multipleChoiceToSpanish', { russian: `${question.word.cyrillic} (${question.word.romanized})` })}
+                {(() => {
+                    // Split the translated prompt around the interpolation marker so we can
+                    // colour the romanized part while keeping the exact wording.
+                    const SENTINEL = '\u0000';
+                    const [before, after = ''] = t('questions.multipleChoiceToSpanish', { russian: SENTINEL }).split(SENTINEL);
+                    return (
+                        <>
+                            {before}{question.word.cyrillic} (<RomanizedText text={question.word.romanized} />){after}
+                        </>
+                    );
+                })()}
             </h3>
             <p className="text-sm mb-4" style={{ color: 'hsl(var(--muted-foreground))' }}>
                 {t('questions.chooseAnswer')}
