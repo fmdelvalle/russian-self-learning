@@ -28,3 +28,8 @@ dist-ssr
 *.sln
 *.sw?
 .yarn
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
